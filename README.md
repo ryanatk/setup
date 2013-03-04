@@ -4,7 +4,7 @@ setup files to follow me around to all machines
 
 ## Install
 
-1. get the repo
+1. download the repo into **.setup** in your home directory
 
         $ cd ~
         $ git clone git@github.com:ryanatk/setup.git .setup
