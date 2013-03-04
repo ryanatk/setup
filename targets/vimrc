@@ -1,30 +1,31 @@
-" plugins
+" ========== PLUGINS ==========
+" NERD tree http://www.vim.org/scripts/script.php?script_id=1658
 source ~/.vim/plugins/NERD_tree.vim
 
+
+" ========== SETUP ==========
 " turn off compatibility with the old vi
 set nocompatible
 
-" turn on the "visual bell" - which is much quieter than the "audio blink"
-set vb
-
 " File types
 filetype on
-au BufNewFile,BufRead *.ftl set filetype=html
-au BufNewFile,BufRead *.zml set filetype=html
 
-" turn on auto indent
-autocmd FileType php,js,html,ftl,zml :set cindent
-set ai
+" Set fhtml to xhtml highlighting
+au BufRead,BufNewFile *.ftl setfiletype xhtml
+au BufRead,BufNewFile *.zml setfiletype xhtml
+au BufRead,BufNewFile *.txt setfiletype xhtml
+au BufRead,BufNewFile *.json setfiletype js
 
-" set to soft tabs at two spaces
-set softtabstop=2
-set shiftwidth=2
-set ts=2
-set expandtab
 
-" look and feel
-set t_co=<t_co>
+" ========== DISPLAY ==========
+" enable 256 colors
+set t_Co=256
+
+" background
 set bg=dark
+
+" 256 colors broke visual mode
+hi Visual cterm=reverse
 
 " turn syntax highlighting on by default
 syntax on
@@ -35,31 +36,64 @@ set number
 " allows full line wrap
 set wrap
 
-" automatically show matching brackets
+
+" ========== BEHAVIOR ==========
+" indent
+autocmd FileType php,js,html,ftl,zml :set cindent
+set ai
+
+" set our tabs to 2 spaces
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+" show trailing spaces
+set list listchars=tab:\ \ ,trail:·
+
+" automatically show matching brackets. works like it does in bbedit.
 set showmatch
 
-" start searching while you type, and highlight all
+" search related preferences
 set incsearch
 set hlsearch
-
-" ignore case on search
 set ignorecase
+set smartcase
 
-map <C-h> B
-map <C-l> W
-map <C-j> }
-map <C-k> {
-map <C-p> :tabprevious<CR>
-map <C-n> :tabnext<CR>
-map <C-t> :tabnew<CR>:e ./<CR>
-map <C-t> :tabnew<CR>:NERDTreeToggle<CR>
-map <C-f> :NERDTreeToggle<CR>
-nmap <Tab> >>
-nmap <S-Tab> <<
-nmap <Space> o<Esc>
+" turn off audible bell
+set vb
+
+
+" ========== MAPPINGS ==========
+" Sweet Shortcuts
 nmap <CR> :w<CR>
 imap <Tab> <Esc>
+nmap <Space> o<Esc>
+map <tab> >>
+map <S-tab> <<
+" Moving Around
+map <C-j> }
+map <C-k> {
+nmap <Left> <C-u>
+nmap <Right> <C-d>
+nmap <Up> <C-y>
+nmap <Down> <C-e>
+" Tabs
+nmap <C-p> :tabprevious<CR>
+nmap <C-n> :tabnext<CR>
+nmap <C-t> :tabnew<CR>:e ./<CR>
+" Vertical Split
+nmap <C-s> :rightb vsp .<CR>
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+" Nerd Tree
+map <C-t> :tabnew<CR>:NERDTreeToggle<CR>
+map <C-f> :NERDTreeToggle<CR>
+" js comment
+"vmap <C-\/> :'<,'>s/^/\/\//g<CR>
 
+" Snippets
+abbr <html> <!doctype html><CR><html><CR><head><CR>  <title></title><CR></head><CR><body><CR></body><CR></html><Esc>gg
+abbr fun\(\) (function () {<CR>})();<Esc>O
+abbr if\(\) if () {<CR>}<Esc>?()<CR>
+abbr while\(\) while (--) {<CR>}<Esc>?()<CR>
 abbr <form> <form action="" method="" id=""><CR></form>
-abbr for() for (var i = 0; i < len; i++) {<CR>}<Esc><S-o><Space>
-abbr <html> <!doctype html><CR><html><CR><head><CR><title></title><CR></head><CR><body><CR></body><CR></html>

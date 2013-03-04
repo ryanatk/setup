@@ -13,15 +13,17 @@ var timestamp = new Date().getTime();
 // create prototype for each file
 var File = function (filename) {
   this.filename = filename;
+  this.target = path.join(targets, filename);
   this.dotname = path.join(home, '.' + filename);
+  this.content = '';
 };
 
 // extend file prototype to include functions
 File.prototype = {
   // create a symlink from dotfile location to target code
   addSymlink: function (file) {
-    var target = path.join(targets, file.filename);
-    var dotname = file.dotname
+    var target = file.target;
+    var dotname = file.dotname;
 
     fs.symlink(target, dotname, function () {
       console.log('Added symlink:', dotname, '->', target);
@@ -39,6 +41,9 @@ File.prototype = {
       // execute callback
       if (callback) callback(self);
     });
+    return this;
+  },
+
   curl: function (uri) {
     var target = this.target;
 
@@ -53,6 +58,13 @@ File.prototype = {
     });
     return this;
   },
+
+  write: function (file) {
+    var dotname = file.dotname;
+    fs.writeFile(dotname, file.content, 'utf8', function () {
+      console.log('wrote to:', dotname);
+      // need to figure out how to reload bash_profile
+    });
   }
 };
 
@@ -90,23 +102,16 @@ File.prototype = {
   if (profile) {
     var file = new File('bash_profile');
 
-    var content = [
+    file.content = [
       'export profile_name=\'' + profile + '\'',
-      'source .setup/bash_profiles/main.bash',
-      '#source .setup/bash_profiles/home.bash',
-      '#source .setup/bash_profiles/work.bash',
-      '#source .setup/bash_profiles/linux.bash',
-      '#source .setup/bash_profiles/osx.bash'
-    ];
+      'source ~/.setup/bash_profiles/main.bash',
+      '#source ~/.setup/bash_profiles/home.bash',
+      '#source ~/.setup/bash_profiles/work.bash',
+      '#source ~/.setup/bash_profiles/linux.bash',
+      '#source ~/.setup/bash_profiles/osx.bash'
+    ].join('\n');
 
-    // TODO: add this to prototype
-    var writeFile = function (file) {
-      fs.writeFile(file.dotname, content.join('\n'), 'utf8', function () {
-        console.log('wrote to:', file.dotname);
-        // need to figure out how to reload bash_profile
-      });
-    };
-    file.backup(writeFile);
+    file.backup(file.write);
   }
 }(argv.profile || null));
 
