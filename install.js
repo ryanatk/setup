@@ -1,22 +1,71 @@
-var fs = require('fs');
+var fs = require('fs.extra');
+var path = require('path');
 var request = require('request');
 var argv = require('optimist').argv;
-var colors = require('colors');
 
-// bash_profile
+var targets = path.join(__dirname, 'targets');
+var home = path.join(__dirname, '..');
+var timestamp = new Date().getTime();
 
-// vimrc
+var File = function (filename) {
+  this.filename = filename;
+  this.dotname = path.join(home, '.' + filename);
+};
 
-// vim
+File.prototype = {
+  addSymlink: function (file) {
+    var target = path.join(targets, file.filename);
+    var dotname = file.dotname
+
+    fs.symlink(target, dotname, function () {
+      console.log('Added symlink:', dotname, '->', target);
+    });
+  },
+
+  backup: function (callback) {
+    var self = this;
+    var dotname = self.dotname;
+    var bkup = dotname + '.bkup.' + timestamp;
+
+    fs.move(dotname, bkup, function (err) {
+      if (!err) console.log('Created backup:', bkup);
+      if (callback) callback(self);
+    });
+  }
+};
+
+// get target files for symlinking
+(function () {
+  fs.readdir(targets, function (err, filenames) {
+    if (err) throw err;
+
+    var len = filenames.length;
+
+    while (len--) {
+      var file = new File(filenames[len]);
+      file.backup(file.addSymlink);
+    }
+  });
+}());
 
 // git completion
-var processResponse = function (err, res, body) {
-  console.log(body);
-};
-request({'uri': 'https://raw.github.com/git/git/master/contrib/completion/git-completion.bash'}, processResponse);
+(function (update) {
+  if (update) {
+    request({'uri': 'https://raw.github.com/git/git/master/contrib/completion/git-completion.bash'}, function (err, res, body) {
+      if (err) {
+        throw err;
+        console.log('Failed to download git completion');
+      }
+      else if (!body) {
+        console.log('Failed to download git completion');
+      } else {
+        fs.writeFile('./git-completion.sh', body);
+        console.log('Success: git completion');
+      }
+    });
+  }
+}(argv.update || null));
 
-// ubuntu
-  // .bashrc
 // bash profile
 (function (profile) {
   if (profile) {
@@ -42,3 +91,4 @@ request({'uri': 'https://raw.github.com/git/git/master/contrib/completion/git-co
 }(argv.profile || null));
 
 // for ubuntu, write to .bashrc to load .bash_profile
+
