@@ -39,6 +39,20 @@ File.prototype = {
       // execute callback
       if (callback) callback(self);
     });
+  curl: function (uri) {
+    var target = this.target;
+
+    // download from uri and write to file
+    request({'uri': uri}, function (err, res, body) {
+      if (err || !body) {
+        console.log('Failed to download:', uri);
+      } else {
+        console.log('Success downloaded:', uri);
+        fs.writeFile(target, body);
+      }
+    });
+    return this;
+  },
   }
 };
 
@@ -60,15 +74,13 @@ File.prototype = {
 // fired by adding option --update
 (function (update) {
   if (update) {
-    // download from github to write to file
-    request({'uri': 'https://raw.github.com/git/git/master/contrib/completion/git-completion.bash'}, function (err, res, body) {
-      if (err || !body) {
-        console.log('Failed to download git completion');
-      } else {
-        fs.writeFile('./git-completion.sh', body);
-        console.log('Success: git completion');
-      }
-    });
+    var completion = new File('git-completion.sh');
+    var gprompt = new File('git-prompt.sh');
+
+    completion.curl('https://raw.github.com/git/git/master/contrib/completion/git-completion.bash')
+      .backup(completion.addSymlink);
+    gprompt.curl('https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh')
+      .backup(gprompt.addSymlink);
   }
 }(argv.update || null));
 
