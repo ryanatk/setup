@@ -4,24 +4,24 @@ setup files to follow me around to all machines
 
 ## Install
 
-1. download the repo into **.setup** in your home directory
+1. download to **~/.setup**
 
         $ cd ~
         $ git clone git@github.com:ryanatk/setup.git .setup
 
-1. download your node dependencies
+1. install node packages
 
         $ cd .setup
         $ npm install
 
 1. run the install script
 
-        $ node install.js
+        $ node install.js --init
    
         
 ## updating
 
-you will not need to run the script again. to stay updated, you only need to pull from git
+to stay updated, pull from git
 
 		$ cd ~/.setup
 		$ git pull origin master
@@ -30,38 +30,50 @@ and reload your bash_profile
 
 		$ . ~/.bash_profile
 
+
 ## Options
 
-### bash_profile and machine_nickname
+### init
 
-the first time you install, you will want to declare your machine nickname (will appear in your terminal's command line prompt) and update your ~/.bash_profile
-        
-        $ node install.js --profile=<machine_nickname>
-        
-where <machine_nickname> can be whatever string you'd like (preferrably something short like "mba" or "linode")
+run this the first time you install to set up everything
 
-this will also backup and update your ~/.bash_profile to now use files within .setup/bash_profiles
+        $ node install.js --init
+
+### profile
+
+update your ~/.bash_profile
+        
+        $ node install.js --profile
+        
+update your machine name, uncomment the environment-specific bash profiles you want to use, and reload your bash_profile
 
 		$ vim ~/.bash_profile
-		
-and uncomment the environment-specific bash profiles you want to use
-
 		$ . ~/.bash_profile
 		
-to reload your bash_profile
+### install
 
-### update git completion and prompt
+symlinks dotfiles in .setup/targets/
 
-you can also update your git completion and prompt scripts by adding the update option
+        $ node install.js --install
+
+### update
+
+update your scripts with the newest code from github: git completion and prompt, and pathogen (vim plugin)
 		
-		$ cd ~/.setup
 		$ node install.js --update
 		
-this will pull the newest code from github
 
+### help
+
+for help on the command line
+
+		$ node install.js --help
+		
+		
 ## Dependencies
 
 ### git
+
 to check if you have git:
 
         $ git --version
@@ -69,6 +81,7 @@ to check if you have git:
 to download and install: <http://git-scm.com/downloads>
 
 ### node.js
+
 to check if you have node.js:
 
         $ node --version

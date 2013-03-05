@@ -1,6 +1,8 @@
 " ========== PLUGINS ==========
 " NERD tree http://www.vim.org/scripts/script.php?script_id=1658
 source ~/.vim/plugins/NERD_tree.vim
+" pathogen https://github.com/tpope/vim-pathogen
+execute pathogen#infect()
 
 
 " ========== SETUP ==========

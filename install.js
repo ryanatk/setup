@@ -5,6 +5,9 @@ var argv = require('optimist').argv;
 
 /** setup must live in ~/.setup **/
 
+// if run with option --init, run all
+if (argv.init) argv.all = true;
+
 // calculate and cache dir paths, timestamp
 var home = path.join(__dirname, '..');
 var targets = path.join(__dirname, 'targets');
@@ -68,42 +71,13 @@ File.prototype = {
   }
 };
 
-// get all target files for symlinking
-(function () {
-  fs.readdir(targets, function (err, filenames) {
-    if (err) throw err;
-
-    var len = filenames.length;
-
-    while (len--) {
-      var file = new File(filenames[len]);
-      file.backup(file.addSymlink);
-    }
-  });
-}());
-
-// git completion
-// fired by adding option --update
-(function (update) {
-  if (update) {
-    var completion = new File('git-completion.sh');
-    var gprompt = new File('git-prompt.sh');
-
-    completion.curl('https://raw.github.com/git/git/master/contrib/completion/git-completion.bash')
-      .backup(completion.addSymlink);
-    gprompt.curl('https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh')
-      .backup(gprompt.addSymlink);
-  }
-}(argv.update || null));
-
-// bash profile
-// fired by adding option --profile=machine_name
+// bash profile --profile
 (function (profile) {
   if (profile) {
     var file = new File('bash_profile');
 
     file.content = [
-      'export profile_name=\'' + profile + '\'',
+      'export profile_name=\'update_me_in_bash_profile\'',
       'source ~/.setup/bash_profiles/main.bash',
       '#source ~/.setup/bash_profiles/home.bash',
       '#source ~/.setup/bash_profiles/work.bash',
@@ -113,7 +87,44 @@ File.prototype = {
 
     file.backup(file.write);
   }
-}(argv.profile || null));
+}(argv.profile || argv.all || false));
+
+// get all target files for symlinking
+(function (install) {
+  if (install) {
+    fs.readdir(targets, function (err, filenames) {
+      if (err) throw err;
+
+      var len = filenames.length;
+
+      while (len--) {
+        var file = new File(filenames[len]);
+        file.backup(file.addSymlink);
+      }
+    });
+  }
+}(argv.install || argv.all || false));
+
+// git completion, pathogen --update
+(function (update) {
+  if (update) {
+    var completion = new File('git-completion.sh');
+    var gprompt = new File('git-prompt.sh');
+    var pathogen = new File('pathogen.vim');
+
+    completion.curl('https://raw.github.com/git/git/master/contrib/completion/git-completion.bash');
+    gprompt.curl('https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh');
+
+    pathogen.target = path.join(targets, 'vim/autoload');
+    pathogen.curl('https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim');
+  }
+}(argv.update || argv.all || false));
 
 // for ubuntu, write to .bashrc to load .bash_profile
 
+
+(function (help) {
+  if (help) {
+    console.log('i promise to help you later');
+  }
+}(argv.help || false));
