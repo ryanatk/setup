@@ -77,15 +77,9 @@ if (argv.help) {
   help();
   return;
 }
-if (argv.profile || argv.all) {
-  profile(argv);
-}
-if (argv.install || argv.all) {
-  install();
-}
-if (argv.update || argv.all) {
-  update();
-}
+if (argv.profile || argv.all) { profile(); }
+if (argv.install || argv.all) { install(); }
+if (argv.update || argv.all) { update(); }
 
 
 // one day this will give help
@@ -95,10 +89,10 @@ function help() {
 
 
 // bash profile --profile
-function profile(arg) {
+function profile() {
   var file = new File('bash_profile');
   var profiles = path.join(__dirname, 'bash_profiles');
-  var name = typeof arg.profile === 'string' ? arg.profile : 'update_me_in_bash_profile';
+  var name = typeof argv.profile === 'string' ? argv.profile : 'update_me_in_bash_profile';
   var content = ['export profile_name=\'' + name + '\'\n'];
 
   fs.readdir(profiles, function (err, filenames) {
