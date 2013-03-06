@@ -71,60 +71,81 @@ File.prototype = {
   }
 };
 
+
+// one day this will give help
+if (argv.help) {
+  console.log('i promise to help you later');
+  return;
+}
+
+
 // bash profile --profile
 (function (profile) {
-  if (profile) {
-    var file = new File('bash_profile');
+  if (!profile) return;
 
-    file.content = [
-      'export profile_name=\'update_me_in_bash_profile\'',
-      'source ~/.setup/bash_profiles/main.bash',
-      '#source ~/.setup/bash_profiles/home.bash',
-      '#source ~/.setup/bash_profiles/work.bash',
-      '#source ~/.setup/bash_profiles/linux.bash',
-      '#source ~/.setup/bash_profiles/osx.bash'
-    ].join('\n');
+  var file = new File('bash_profile');
+  var profiles = path.join(__dirname, 'bash_profiles');
+  var name = typeof profile === 'string' ? profile : 'update_me_in_bash_profile';
+  var content = ['export profile_name=\'' + name + '\''];
 
+  fs.readdir(profiles, function (err, filenames) {
+    if (err) { onErr(err); }
+
+    var len = filenames.length;
+    while (len--) {
+      var line = 'source ~/.setup/bash_profiles/';
+      var filename = filenames[len];
+      var profile = filename.split('.')[0];
+
+      if (!argv[profile]) { line = '#' + line; }
+      line += filename;
+      content.push(line);
+    }
+
+    file.content = content.join('\n');
     file.backup(file.write);
-  }
+  });
 }(argv.profile || argv.all || false));
 
-// get all target files for symlinking
+
+// get all target files for symlinking --install
 (function (install) {
-  if (install) {
-    fs.readdir(targets, function (err, filenames) {
-      if (err) throw err;
+  if (!install) return;
 
-      var len = filenames.length;
+  fs.readdir(targets, function (err, filenames) {
+    if (err) { onErr(err); }
 
-      while (len--) {
-        var file = new File(filenames[len]);
-        file.backup(file.addSymlink);
-      }
-    });
-  }
+    var len = filenames.length;
+    while (len--) {
+      var file = new File(filenames[len]);
+
+      file.backup(file.addSymlink);
+    }
+  });
 }(argv.install || argv.all || false));
+
 
 // git completion, pathogen --update
 (function (update) {
-  if (update) {
-    var completion = new File('git-completion.sh');
-    var gprompt = new File('git-prompt.sh');
-    var pathogen = new File('pathogen.vim');
+  if (!update) return;
 
-    completion.curl('https://raw.github.com/git/git/master/contrib/completion/git-completion.bash');
-    gprompt.curl('https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh');
+  var completion = new File('git-completion.sh');
+  completion.curl('https://raw.github.com/git/git/master/contrib/completion/git-completion.bash');
 
-    pathogen.target = path.join(targets, 'vim/autoload');
-    pathogen.curl('https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim');
-  }
+  var gprompt = new File('git-prompt.sh');
+  gprompt.curl('https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh');
+
+  var pathogen = new File('pathogen.vim');
+  pathogen.target = path.join(targets, 'vim/autoload');
+  pathogen.curl('https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim');
 }(argv.update || argv.all || false));
+
 
 // for ubuntu, write to .bashrc to load .bash_profile
 
 
-(function (help) {
-  if (help) {
-    console.log('i promise to help you later');
-  }
-}(argv.help || false));
+// error function
+function onErr(err) {
+  console.log(err);
+  return 1;
+}

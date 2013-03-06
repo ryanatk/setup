@@ -18,6 +18,10 @@ setup files to follow me around to all machines
 
         $ node install.js --init
    
+1. update and reload bash profile
+
+		$ vim ~/.bash_profile
+		$ . ~/.bash_profile
         
 ## updating
 
@@ -28,7 +32,7 @@ to stay updated, pull from git
 		
 and reload your bash_profile
 
-		$ . ~/.bash_profile
+		$ rbash
 
 
 ## Options
@@ -48,7 +52,11 @@ update your ~/.bash_profile
 update your machine name, uncomment the environment-specific bash profiles you want to use, and reload your bash_profile
 
 		$ vim ~/.bash_profile
-		$ . ~/.bash_profile
+		$ rbash
+		
+optionally, you can set machine name and declare profiles with options
+
+        $ node install.js --profile=mba --osx --home
 		
 ### install
 

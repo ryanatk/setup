@@ -41,13 +41,14 @@ set wrap
 
 " ========== BEHAVIOR ==========
 " indent
-autocmd FileType php,js,html,ftl,zml :set cindent
+"autocmd FileType php,js,html,ftl,zml :set cindent
 set ai
+set cindent
 
 " set our tabs to 2 spaces
-set softtabstop=2
-set shiftwidth=2
 set expandtab
+set shiftwidth=2
+set softtabstop=2
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
