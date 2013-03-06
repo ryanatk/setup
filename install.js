@@ -5,9 +5,6 @@ var argv = require('optimist').argv;
 
 /** setup must live in ~/.setup **/
 
-// if run with option --init, run all
-if (argv.init) argv.all = true;
-
 // calculate and cache dir paths, timestamp
 var home = path.join(__dirname, '..');
 var targets = path.join(__dirname, 'targets');
@@ -72,21 +69,37 @@ File.prototype = {
 };
 
 
-// one day this will give help
+// if run with option --init, run all
+if (argv.init) argv.all = true;
+
+// fire functions based on options
 if (argv.help) {
-  console.log('i promise to help you later');
+  help();
   return;
+}
+if (argv.profile || argv.all) {
+  profile(argv);
+}
+if (argv.install || argv.all) {
+  install();
+}
+if (argv.update || argv.all) {
+  update();
+}
+
+
+// one day this will give help
+function help() {
+  console.log('i promise to help you later');
 }
 
 
 // bash profile --profile
-(function (profile) {
-  if (!profile) return;
-
+function profile(arg) {
   var file = new File('bash_profile');
   var profiles = path.join(__dirname, 'bash_profiles');
-  var name = typeof profile === 'string' ? profile : 'update_me_in_bash_profile';
-  var content = ['export profile_name=\'' + name + '\''];
+  var name = typeof arg.profile === 'string' ? arg.profile : 'update_me_in_bash_profile';
+  var content = ['export profile_name=\'' + name + '\'\n'];
 
   fs.readdir(profiles, function (err, filenames) {
     if (err) { onErr(err); }
@@ -95,9 +108,9 @@ if (argv.help) {
     while (len--) {
       var line = 'source ~/.setup/bash_profiles/';
       var filename = filenames[len];
-      var profile = filename.split('.')[0];
+      var option = filename.split('.')[0];
 
-      if (!argv[profile]) { line = '#' + line; }
+      if (!argv[option]) { line = '#' + line; }
       line += filename;
       content.push(line);
     }
@@ -105,13 +118,11 @@ if (argv.help) {
     file.content = content.join('\n');
     file.backup(file.write);
   });
-}(argv.profile || argv.all || false));
+}
 
 
 // get all target files for symlinking --install
-(function (install) {
-  if (!install) return;
-
+function install() {
   fs.readdir(targets, function (err, filenames) {
     if (err) { onErr(err); }
 
@@ -122,13 +133,11 @@ if (argv.help) {
       file.backup(file.addSymlink);
     }
   });
-}(argv.install || argv.all || false));
+}
 
 
 // git completion, pathogen --update
-(function (update) {
-  if (!update) return;
-
+function update() {
   var completion = new File('git-completion.sh');
   completion.curl('https://raw.github.com/git/git/master/contrib/completion/git-completion.bash');
 
@@ -138,7 +147,7 @@ if (argv.help) {
   var pathogen = new File('pathogen.vim');
   pathogen.target = path.join(targets, 'vim/autoload');
   pathogen.curl('https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim');
-}(argv.update || argv.all || false));
+}
 
 
 // for ubuntu, write to .bashrc to load .bash_profile
