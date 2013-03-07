@@ -104,7 +104,7 @@ function profile() {
       var filename = filenames[len];
       var option = filename.split('.')[0];
 
-      if (!argv[option]) { line = '#' + line; }
+      if (option !== 'main' && !argv[option]) { line = '#' + line; }
       line += filename;
       content.push(line);
     }
