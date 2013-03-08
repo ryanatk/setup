@@ -1,3 +1,6 @@
 [submodule "targets/vim/bundle/syntastic"]
 	path = targets/vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "targets/vim/bundle/nerdtree"]
+	path = targets/vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
