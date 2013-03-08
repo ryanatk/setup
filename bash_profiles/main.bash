@@ -28,6 +28,7 @@ alias gchange='git whatchanged -p --'
 # file locations
 alias ehosts='sudo vi /etc/hosts'
 alias ebash='vim ~/.setup/bash_profiles/'
+alias ebashes='vim ~/.setup/bash_profiles/*'
 alias rbash='. ~/.bash_profile'
 alias evimrc='vim ~/.vimrc'
 
