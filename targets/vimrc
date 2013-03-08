@@ -1,9 +1,6 @@
 " ========== PLUGINS ==========
-" NERD tree http://www.vim.org/scripts/script.php?script_id=1658
-source ~/.vim/plugins/NERD_tree.vim
 " pathogen https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
-
 
 " ========== SETUP ==========
 " turn off compatibility with the old vi
@@ -17,7 +14,6 @@ au BufRead,BufNewFile *.ftl setfiletype xhtml
 au BufRead,BufNewFile *.zml setfiletype xhtml
 au BufRead,BufNewFile *.txt setfiletype xhtml
 au BufRead,BufNewFile *.json setfiletype js
-
 
 " ========== DISPLAY ==========
 " enable 256 colors
@@ -37,7 +33,6 @@ set number
 
 " allows full line wrap
 set wrap
-
 
 " ========== BEHAVIOR ==========
 " indent
@@ -66,10 +61,9 @@ set smartcase
 set vb
 
 " syntastic
-set statusline+=%{SyntasticStatuslineFlag()}
-let g:syntastic_check_on_open=1
-let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['javascript', 'html'], 'passive_filetypes': ['css'] }
-
+"set statusline+=%{SyntasticStatuslineFlag()}
+"let g:syntastic_check_on_open=1
+"let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['javascript', 'html'], 'passive_filetypes': ['css'] }
 
 " ========== MAPPINGS ==========
 " Sweet Shortcuts

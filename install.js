@@ -2,6 +2,7 @@ var fs = require('fs.extra');
 var path = require('path');
 var request = require('request');
 var argv = require('optimist').argv;
+var exec = require('child_process').exec;
 
 /** setup must live in ~/.setup **/
 
@@ -141,6 +142,13 @@ function update() {
   var pathogen = new File('pathogen.vim');
   pathogen.target = path.join(targets, 'vim/autoload');
   pathogen.curl('https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim');
+
+  var child;
+  child = exec('git submodule update', function (err, stdout, stderr) {
+    if (stdout) { console.log('git submodule update: ' + stdout); }
+    if (stderr) { console.log('git submodule update error: ' + stderr); }
+    if (err !== null) { console.log('git submodule update error: ' + err); }
+  });
 }
 
 

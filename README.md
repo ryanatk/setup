@@ -66,7 +66,7 @@ symlinks dotfiles in .setup/targets/
 
 ### update
 
-update your scripts with the newest code from github: git completion and prompt, and pathogen (vim plugin)
+update your scripts with the newest code from github: git completion and prompt, vim plugins (pathogen, nerdtree, and syntastic)
 		
 		$ node install.js --update
 		
@@ -82,7 +82,7 @@ for help on the command line
 
 ### git
 
-to check if you have git:
+to check if you have git
 
         $ git --version
 
@@ -90,9 +90,20 @@ to download and install: <http://git-scm.com/downloads>
 
 ### node.js
 
-to check if you have node.js:
+to check if you have node.js
 
         $ node --version
+        
 to download and install: <http://nodejs.org/download/>
 
+### jshint
 
+to check if you have jshint installed
+
+        $ jshint --version
+        
+to download and install
+
+        $ sudo npm install -g jshint
+        
+       
