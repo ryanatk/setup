@@ -23,8 +23,8 @@ alias carttable='mvim rebar/macros/z/cartTable.ftl'
 alias pixels='mvim zappos.com/checkout/trackingPixels.ftl 6pm.com/checkout/trackingPixels.ftl'
 
 # tail logs
-alias elogs='tail -n 2000 -f ~/zeta/sahara/target/cargo/configurations/*/logs/* | grep "\[ERROR\]" -A 88 '
-alias etomlogs='tail -n 2000 -f ~/tomcat/logs/tomcat/*catalina.out | grep "\[ERROR\]" -A 88 '
+alias elogs='tail -n 2000 -f ~/zeta/sahara/target/cargo/configurations/*/logs/* | grep "\[ERROR\]" -A 8 '
+alias etomlogs='tail -n 2000 -f ~/tomcat/logs/tomcat/*catalina.out | grep "\[ERROR\]" -A 8 '
 alias tomlogs='tail -n 1000 -F ~/tomcat/logs/tomcat/*catalina.out'
 
 # edit properties files
@@ -33,3 +33,10 @@ alias ehelios='vim ~/.spring/helios.properties'
 
 # in frontend, run clipboard thru closure
 alias jscompress='pbpaste | java -jar closure.jar | pbcopy'
+
+# ec2
+export EC2_HOME=~/.aws/ec2-api-tools-1.6.7.1
+export PATH=$PATH:$EC2_HOME/bin:~/.aws/AWS-ElasticBeanstalk-CLI-2.3.1/eb/macosx/python2.7
+
+# get zfc headers back in curl
+alias curlz='curl -H "X-ZFC-Debug: on" -I'

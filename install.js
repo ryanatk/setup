@@ -95,6 +95,7 @@ function profile() {
   var profiles = path.join(__dirname, 'bash_profiles');
   var name = typeof argv.profile === 'string' ? argv.profile : 'update_me_in_bash_profile';
   var content = ['export profile_name=\'' + name + '\'\n'];
+  var defaults = ['main', 'private'];
 
   fs.readdir(profiles, function (err, filenames) {
     if (err) { onErr(err); }
@@ -105,7 +106,7 @@ function profile() {
       var filename = filenames[len];
       var option = filename.split('.')[0];
 
-      if (option !== 'main' && !argv[option]) { line = '#' + line; }
+      if (defaults.indexOf(option) === -1 && !argv[option]) { line = '#' + line; }
       line += filename;
       content.push(line);
     }
