@@ -24,7 +24,7 @@ alias pixels='mvim zappos.com/checkout/trackingPixels.ftl 6pm.com/checkout/track
 
 # tail logs
 alias elogs='tail -n 2000 -f ~/zeta/sahara/target/cargo/configurations/*/logs/* | grep "\[ERROR\]" -A 8 '
-alias etomlogs='tail -n 2000 -f ~/tomcat/logs/tomcat/*catalina.out | grep "\[ERROR\]" -A 58 '
+alias etomlogs='tail -n 2000 -f ~/tomcat/logs/tomcat/*catalina.out | grep "\[ERROR\]" -A 8 '
 alias tomlogs='tail -n 1000 -F ~/tomcat/logs/tomcat/*catalina.out'
 
 # edit properties files
