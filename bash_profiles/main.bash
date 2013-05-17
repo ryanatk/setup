@@ -36,3 +36,9 @@ alias evimrc='vim ~/.vimrc'
 alias sshryan='ssh ryan@74.207.233.20'
 alias sshroot='ssh root@74.207.233.20'
 alias cweb='cd ~/web'
+
+# aws
+# curl -O https://s3.amazonaws.com/zappos-aws-workshop/aws.zip; unzip aws.zip; rm aws.zip; mv aws ~/.aws
+export AWS_CONFIG_FILE=~/.aws/aws_config_file
+export EC2_HOME=~/.aws/ec2-api-tools-1.6.7.1
+export PATH=$PATH:$EC2_HOME/bin:~/.aws/AWS-ElasticBeanstalk-CLI-2.3.1/eb/macosx/python2.7
