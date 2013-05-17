@@ -33,8 +33,7 @@ alias rbash='. ~/.bash_profile'
 alias evimrc='vim ~/.vimrc'
 
 # ssh
-alias sshryan='ssh ryan@74.207.233.20'
-alias sshroot='ssh root@74.207.233.20'
+alias sshryanatk='ssh root@198.199.114.117'
 alias cweb='cd ~/web'
 
 # aws
