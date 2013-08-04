@@ -1,1 +1,1 @@
-/Users/ratkinson/.bash_private.bash
+/Users/ryaatkin/.private.bash
