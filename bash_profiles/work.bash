@@ -21,6 +21,7 @@ alias cfront='cd ~/zeta/thor/frontend'
 alias chdt='cd ~/zeta/HD-THOR/frontend'
 alias csahara='cd ~/zeta/sahara/frontend'
 alias chds='cd ~/zeta/HD-SAHARA/frontend'
+alias cps='cd ~/zeta/pixel-server'
 alias carttable='mvim rebar/macros/z/cartTable.ftl'
 alias pixels='mvim zappos.com/checkout/trackingPixels.ftl 6pm.com/checkout/trackingPixels.ftl'
 
