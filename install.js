@@ -141,11 +141,11 @@ function update() {
   gprompt.curl('https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh');
 
   var pathogen = new File('pathogen.vim');
-  pathogen.target = path.join(targets, 'vim/autoload');
+  pathogen.target = path.join(targets, 'vim/autoload/pathogen.vim');
   pathogen.curl('https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim');
 
   var child;
-  child = exec('git submodule update', function (err, stdout, stderr) {
+  child = exec('git submodule update --init', function (err, stdout, stderr) {
     if (stdout) { console.log('git submodule update: ' + stdout); }
     if (stderr) { console.log('git submodule update error: ' + stderr); }
     if (err !== null) { console.log('git submodule update error: ' + err); }
