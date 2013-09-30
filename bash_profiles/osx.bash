@@ -4,6 +4,10 @@ export NODE_PATH="usr/local/lib/node"
 export firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
 export PATH="$HOME/local/node/bin:/usr/local/mysql/bin:/usr/local/sbin:$PATH:/Applications/Firefox.app/Contents/MacOS/"
 
+# nginx
+alias cnginx='cd /usr/local/etc/nginx'
+alias ngrestart='sudo nginx -s stop; sudo nginx'
+
 # mac applications
 alias mou='open -a Mou'
 alias mvim='/Applications/MacVim.app/Contents/MacOS/Vim -g -p --remote-tab-silent'
