@@ -1,5 +1,6 @@
 export GREP_OPTIONS='--color=auto'
 export GREP_COLORS='fn=16'
+export EDITOR=vim
 
 # Git tab completion
 source ~/.git-completion.sh
