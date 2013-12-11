@@ -13,7 +13,8 @@ filetype on
 au BufRead,BufNewFile *.ftl setfiletype xhtml
 au BufRead,BufNewFile *.zml setfiletype xhtml
 au BufRead,BufNewFile *.txt setfiletype xhtml
-au BufRead,BufNewFile *.json setfiletype js
+au BufRead,BufNewFile *.json setfiletype javascript
+au BufRead,BufNewFile *.har setfiletype javascript
 
 " ========== DISPLAY ==========
 " enable 256 colors
@@ -95,7 +96,8 @@ map <C-f> :NERDTreeToggle<CR>
 
 " Snippets
 abbr <html> <!doctype html><CR><html><CR><head><CR>  <title></title><CR></head><CR><body><CR></body><CR></html><Esc>gg
-abbr fun\(\) (function () {<CR>})();<Esc>O
-abbr if\(\) if () {<CR>}<Esc>?()<CR>
-abbr while\(\) while (--) {<CR>}<Esc>?()<CR>
+abbr fun() (function (win, doc) {<CR>})(window, document);<Esc>O
+abbr if() if () {<CR>}<Esc>?()<CR>a
+abbr while() while () {<CR>}<Esc>?()<CR>a
+abbr for() for (var i = 0, len = items.length; i < len; i++) {<CR>}<Esc>?items<CR>
 abbr <form> <form action="" method="" id=""><CR></form>
