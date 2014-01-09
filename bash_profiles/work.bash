@@ -18,6 +18,7 @@ alias jmeter='/Users/ratkinson/apache-jmeter-2.8/bin/jmeter ; exit;'
 # zeta file locations
 alias cz='cd ~/zeta/'
 alias cfront='cd ~/zeta/thor/frontend'
+alias cthor='cd ~/zeta/thor/frontend'
 alias chdt='cd ~/zeta/HD-THOR/frontend'
 alias csahara='cd ~/zeta/sahara/frontend'
 alias chds='cd ~/zeta/HD-SAHARA/frontend'

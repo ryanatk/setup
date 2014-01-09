@@ -1,1 +1,1 @@
-/root/.private.bash
+.private.bash

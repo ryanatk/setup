@@ -19,3 +19,6 @@ alias hide-hidden-files='defaults write com.apple.finder AppleShowAllFiles FALSE
 
 # Add whitespace to the mac dock
 alias dockSpace='(defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}"; killall Dock)'
+
+# VirtualBox
+alias ie7update='rm -rf ~/.ievms/IE7* ~/VirtualBox\ VMs/IE7\ -\ WinXP/; curl -s https://raw.github.com/xdissent/ievms/master/ievms.sh | env IEVMS_VERSIONS="7" bash'
