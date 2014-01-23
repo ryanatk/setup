@@ -107,3 +107,10 @@ to download and install
         $ sudo npm install -g jshint
         
        
+
+## Todos
+
+- fix the private.bash
+    - add to gitignore and make install script create a file with 1 line
+- better help
+- move backup files into this dir
