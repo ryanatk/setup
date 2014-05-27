@@ -17,7 +17,7 @@ alias ls="ls -G"
 alias ll='ls -alF'
 alias la='ls -A'
 alias lc='ls -CF'
-alias gr='grep -r --exclude-dir=node_modules --exclude=*.log --exclude=*.p.*'
+alias gr='fgrep -R --exclude-dir=node_modules --exclude=*.log --exclude=*.p.*'
 alias fin='find . -name'
 alias myip='ipconfig getifaddr en0'
 alias myipwireless='ipconfig getifaddr en1'
