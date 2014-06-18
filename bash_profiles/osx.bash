@@ -1,6 +1,6 @@
 # osx specific settings
 export JAVA_HOME='/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home'
-export NODE_PATH="usr/local/lib/node"
+export NODE_PATH='usr/local/lib/node'
 export firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
 export PATH="$HOME/local/node/bin:/usr/local/mysql/bin:/usr/local/sbin:$PATH:/Applications/Firefox.app/Contents/MacOS/"
 
@@ -19,3 +19,6 @@ alias hide-hidden-files='defaults write com.apple.finder AppleShowAllFiles FALSE
 
 # Add whitespace to the mac dock
 alias dockSpace='(defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}"; killall Dock)'
+
+# VirtualBox
+alias ie7update='rm -rf ~/.ievms/IE7* ~/VirtualBox\ VMs/IE7\ -\ WinXP/; curl -s https://raw.github.com/xdissent/ievms/master/ievms.sh | env IEVMS_VERSIONS="7" bash'

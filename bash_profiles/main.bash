@@ -11,12 +11,13 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 PS1='\[\033[1;33m\]\u\[\033[0m\]@\[\033[1;33m\]$profile_name \[\033[0m\]\w\[\033[1;33m\]$(__git_ps1 " %s")\[\033[0m\] \$ '
 
 # command line tool aliases
+set -o vi
 alias vim='vim -p'
 alias ls="ls -G"
 alias ll='ls -alF'
 alias la='ls -A'
 alias lc='ls -CF'
-alias gr='grep -r --exclude-dir=node_modules --exclude=*.log --exclude=*.p.*'
+alias gr='fgrep -R --exclude-dir=node_modules --exclude=*.log --exclude=*.p.*'
 alias fin='find . -name'
 alias myip='ipconfig getifaddr en0'
 alias myipwireless='ipconfig getifaddr en1'
