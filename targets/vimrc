@@ -13,7 +13,7 @@ filetype on
 au BufRead,BufNewFile *.ftl setfiletype xhtml
 au BufRead,BufNewFile *.zml setfiletype xhtml
 au BufRead,BufNewFile *.txt setfiletype xhtml
-au BufRead,BufNewFile *.json setfiletype js
+au BufRead,BufNewFile *.json setfiletype javascript
 
 " ========== DISPLAY ==========
 " enable 256 colors
