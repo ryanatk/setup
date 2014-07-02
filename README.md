@@ -114,3 +114,4 @@ to download and install
     - add to gitignore and make install script create a file with 1 line
 - better help
 - move backup files into this dir
+- make init and update scripts update submodules too
