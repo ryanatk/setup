@@ -1,4 +1,8 @@
 export ANT_HOME="/opt/ant"
+export M2="/usr/local/apache-maven-3.x.y/bin"
+export PATH=$M2:$PATH
+export JAVA_HOME='/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home'
+#export JRE_HOME='/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home'
 
 # ssh
 alias prelive="ssh prelive.zappos.net"
@@ -18,7 +22,7 @@ alias heliosAtlasStart='cd ${ZETA_DIR}/Atlas; mvn clean package install -DbuildH
 alias buildvalhalla='cd ${ZETA_DIR}/valhalla; mvn clean install -DskipTests -U'
 alias buildbroadway-common='cd ${ZETA_DIR}/broadway/broadway-common && mvn clean install -DskipTests'
 alias buildspock='cd ${ZETA_DIR}/spock && export JAVA_HOME=$(/usr/libexec/java_home) && export "CATALINA_OPTS=-Dlog4j.configuration=file:$HOME/tomcat/conf/log4j.xml" && mvn clean compile install -DskipTests -U'
-alias broadwaystart='cd ${ZETA_DIR}/broadway/broadway-server && mvn jetty:run'
+alias broadwaystart='cd ${ZETA_DIR}/broadway/broadway-server && mvn jetty:run; echo -e "\a"'
 alias jmeter='/Users/ratkinson/apache-jmeter-2.8/bin/jmeter ; exit;'
 alias java7='source ~/.profile'
 
@@ -57,6 +61,15 @@ export PATH=$PATH:$EC2_HOME/bin:~/.aws/AWS-ElasticBeanstalk-CLI-2.3.1/eb/macosx/
 
 # get zfc headers back in curl
 alias curlz='curl -H "X-ZFC-Debug: on" -I'
+
+# get headers back in curl that sys needs for debugging
+alias curlsys='curl -qisv -o/dev/null'
+
+# get akamai headers back in curl (does not work in the office)
+alias curla='curl -H I -"Pragma: akamai-x-cache-on"'
+
+# get all the akamai headers back in curl (does not work in the office)
+alias curlakamai='curl -qisv -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on,  akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values,  akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key,  akamai-x-serial-no"'
 
 # lode
 export ANT_OPTS='-Dhappytrails.platform.override=RHEL5 -Dhappytrails.root=/usr/local/lode/ZapposEaseOfDevelopment/happytrails -Xmx500M'

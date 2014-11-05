@@ -17,7 +17,9 @@ alias ls="ls -G"
 alias ll='ls -alF'
 alias la='ls -A'
 alias lc='ls -CF'
-alias gr='fgrep -R --exclude-dir=node_modules --exclude=*.log --exclude=*.p.*'
+alias gr='fgrep -R -I -n --exclude-dir=node_modules --exclude=*.log'
+#this doesnt work. make it work.
+alias vgr='vim -p `fgrep -R -l --exclude-dir=node_modules --exclude=*.log --exclude=*.p.* $1 *`'
 alias fin='find . -name'
 alias myip='ipconfig getifaddr en0'
 alias myipwireless='ipconfig getifaddr en1'

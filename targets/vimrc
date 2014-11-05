@@ -1,6 +1,7 @@
 " ========== PLUGINS ==========
 " pathogen https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
+set shell=/bin/bash
 
 " ========== SETUP ==========
 " turn off compatibility with the old vi
